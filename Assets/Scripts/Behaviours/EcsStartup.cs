@@ -29,6 +29,7 @@ namespace Fabros.EcsLite.Behaviours
             updateSystems = new EcsSystems(world, sharedData);
             updateSystems
                 .Add(new PlayerInitSystem())
+                .Add(new PlayerInputSystem())
                 .Add(new CameraInitSystem())
                 .Add(new TimeSystem())
 #if UNITY_EDITOR
@@ -38,6 +39,9 @@ namespace Fabros.EcsLite.Behaviours
 
             fixedUpdateSystem = new EcsSystems(world, sharedData);
             fixedUpdateSystem
+                .Add(new MovementSystem())
+                .Add(new RotationSystem())
+                .Add(new SetTransformSystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
