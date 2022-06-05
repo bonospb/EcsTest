@@ -31,6 +31,7 @@ namespace Fabros.EcsLite.Behaviours
                 .Add(new PlayerInitSystem())
                 .Add(new PlayerInputSystem())
                 .Add(new CameraInitSystem())
+                .Add(new GateInitSystem())
                 .Add(new TimeSystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
@@ -41,6 +42,8 @@ namespace Fabros.EcsLite.Behaviours
             fixedUpdateSystem
                 .Add(new MovementSystem())
                 .Add(new RotationSystem())
+                .Add(new PushedButtonGateSystem())
+                .Add(new GateOpeningSystem())
                 .Add(new SetTransformSystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
