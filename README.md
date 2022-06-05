@@ -1,2 +1,8 @@
-# EcsTest
-Test Ecs 
+# LeoEcsLite-Test
+## Сколько времени было потрачено
+В общей сложности было потрачено порядка 17 часов. Это время включает в себя как изучение предметной области так и реализация. 
+## Список систем, которые могут и должны быть запущены на сервере
+- MovementSystem
+- RotationSystem
+- PushedButtonGateSystem
+- GateOpeningSystem
