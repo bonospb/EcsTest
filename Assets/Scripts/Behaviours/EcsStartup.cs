@@ -1,4 +1,5 @@
 using Fabros.EcsLite.Configurations;
+using Fabros.EcsLite.Ecs.Systems;
 using Fabros.EcsLite.Services;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -13,8 +14,7 @@ namespace Fabros.EcsLite.Behaviours
         #endregion
 
         #region Private
-        private EcsWorld ecsWorld;
-
+        private EcsWorld world;
         private EcsSystems updateSystems;
         private EcsSystems fixedUpdateSystem;
         #endregion
@@ -22,18 +22,21 @@ namespace Fabros.EcsLite.Behaviours
         #region Unity methods
         private void Start()
         {
-            SharedData sharedData = new SharedData(new RuntimeData(), new Configs(), sceneData);
+            SharedData sharedData = new SharedData(new Configs(), new TimeService(), sceneData);
 
-            ecsWorld = new EcsWorld();
+            world = new EcsWorld();
 
-            updateSystems = new EcsSystems(ecsWorld, sharedData);
+            updateSystems = new EcsSystems(world, sharedData);
             updateSystems
+                .Add(new PlayerInitSystem())
+                .Add(new CameraInitSystem())
+                .Add(new TimeSystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
                 .Init();
 
-            fixedUpdateSystem = new EcsSystems(ecsWorld, sharedData);
+            fixedUpdateSystem = new EcsSystems(world, sharedData);
             fixedUpdateSystem
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
@@ -55,8 +58,8 @@ namespace Fabros.EcsLite.Behaviours
             updateSystems?.Destroy();
             updateSystems = null;
 
-            ecsWorld?.Destroy();
-            ecsWorld = null;
+            world?.Destroy();
+            world = null;
         }
         #endregion
     }

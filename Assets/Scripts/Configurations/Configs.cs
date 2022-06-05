@@ -1,6 +1,6 @@
 ﻿namespace Fabros.EcsLite.Configurations
 {
-    public class Configs
+    public sealed class Configs
     {
         #region Public
         public PlayerConfig PlayerConfig { get; private set; } = new PlayerConfig();

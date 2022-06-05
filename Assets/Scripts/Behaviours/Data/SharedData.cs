@@ -1,20 +1,20 @@
-﻿using Fabros.EcsLite.Behaviours;
-using Fabros.EcsLite.Configurations;
+﻿using Fabros.EcsLite.Configurations;
+using Fabros.EcsLite.Services;
 
-namespace Fabros.EcsLite.Services
+namespace Fabros.EcsLite.Behaviours
 {
     public class SharedData
     {
         #region Public
-        public RuntimeData RuntimeData { get; private set; }
         public Configs Configurations { get; private set; }
+        public TimeService TimeService { get; private set; }
         public SceneData SceneData { get; private set; }
         #endregion
 
-        public SharedData(RuntimeData runtimeData, Configs configurations, SceneData sceneData)
+        public SharedData(Configs configurations, TimeService timeService, SceneData sceneData)
         {
-            RuntimeData = runtimeData;
             Configurations = configurations;
+            TimeService = timeService;
             SceneData = sceneData;
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Fabros.EcsLite.Configurations
 {
-    public class PlayerConfig
+    public sealed class PlayerConfig
     {
         #region Public
         public float PlayerMoveSpeed { get; private set; } = 5;
