@@ -11,7 +11,6 @@ namespace Fabros.EcsLite.Ecs.Systems
         {
             SharedData shared = systems.GetShared<SharedData>();
 
-            shared.TimeService.DeltaTime = Time.deltaTime;
             shared.TimeService.FixedDeltaTime = Time.fixedDeltaTime;
         }
         #endregion

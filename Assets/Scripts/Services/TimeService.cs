@@ -3,8 +3,7 @@
     public sealed class TimeService
     {
         #region Public
-        public float DeltaTime;
-        public float FixedDeltaTime;
+        public float FixedDeltaTime = 0.02f;
         #endregion
     }
 }
