@@ -12,6 +12,7 @@ Assets/UnityVS*
 Builds/*
 Bin/*
 Logs/*
+UserSettings/*
 debug.log
 debug.log.meta
 *EditorUserSettings.asset
