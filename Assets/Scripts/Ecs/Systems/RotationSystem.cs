@@ -14,22 +14,26 @@ namespace Fabros.EcsLite.Ecs.Systems
 
             EcsWorld world = systems.GetWorld();
 
-            var filter = world.Filter<PlayerData>().Inc<InputData>().Inc<TransformData>().End();
+            var filter = world.Filter<PlayerData>().Inc<InputData>().Inc<TransformData>().Inc<JoystickData>().End();
 
             var playerDataPool = world.GetPool<PlayerData>();
             var inputDataPool = world.GetPool<InputData>();
             var transformDataPool = world.GetPool<TransformData>();
+            var joysticDataPool = world.GetPool<JoystickData>();
 
             foreach (var entity in filter)
             {
                 ref var playerData = ref playerDataPool.Get(entity);
                 ref var inputData = ref inputDataPool.Get(entity);
                 ref var transformData = ref transformDataPool.Get(entity);
+                ref var joystickData = ref joysticDataPool.Get(entity);
 
                 var dt = sharedData.TimeService.FixedDeltaTime;
                 var speed = playerData.RotationSpeed * dt;
 
-                var targetDir = (inputData.TargetPosition - transformData.Position);
+                var targetDir = joystickData.Direction.magnitude > 0 ?
+                    joystickData.Direction :
+                    (inputData.TargetPosition - transformData.Position);
                 var forward = (transformData.Rotation * Vector3.forward).normalized;
 
                 float angle = Vector3.SignedAngle(forward, targetDir, Vector3.up);

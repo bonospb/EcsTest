@@ -41,8 +41,7 @@ namespace Fabros.EcsLite.Ecs.Systems
             {
                 ref var inputData = ref inputDataPool.Get(entity);
                 ref var transformData = ref transformDataPool.Get(entity);
-
-                if (Input.GetButtonUp("Action"))
+                if (Input.GetButtonUp("Action") && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
                     Plane playerPlane = new Plane(Vector3.up, transformData.Position);
                     Ray ray = sharedData.SceneData.MainCamera.ScreenPointToRay(Input.mousePosition);

@@ -19,6 +19,9 @@ namespace Fabros.EcsLite.Ecs.Systems
             var playerDataPool = world.GetPool<PlayerData>();
             playerDataPool.Add(playerEntity);
 
+            var joysticDataPool = world.GetPool<JoystickData>();
+            joysticDataPool.Add(playerEntity);
+
             var inputDataPool = world.GetPool<InputData>();
             inputDataPool.Add(playerEntity);
 
