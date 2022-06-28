@@ -29,6 +29,7 @@ namespace Fabros.EcsLite.Behaviours
             updateSystems = new EcsSystems(world, sharedData);
             updateSystems
                 .Add(new PlayerInitSystem())
+                .Add(new JoystickSystem())
                 .Add(new PlayerInputSystem())
                 .Add(new CameraInitSystem())
                 .Add(new GateInitSystem())

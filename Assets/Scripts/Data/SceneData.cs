@@ -33,6 +33,8 @@ namespace Fabros.EcsLite.Behaviours
         public GameObject CameraPrefab => cameraPrefab;
 
         public ButtonAndGatesLink[] ButtonAndGatesLinks => buttonAndGatesLinks;
+
+        public FixedJoystick joystick;
         #endregion
     }
 }
