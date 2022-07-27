@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Fabros.EcsLite.Behaviours
+namespace FreeTeam.Test.Behaviours
 {
     public class SceneData : MonoBehaviour
     {

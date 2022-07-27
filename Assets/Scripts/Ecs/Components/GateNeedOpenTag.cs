@@ -1,4 +1,4 @@
-﻿namespace Fabros.EcsLite.Ecs.Components
+﻿namespace FreeTeam.Test.Ecs.Components
 {
     public struct GateNeedOpenTag
     {

@@ -1,4 +1,4 @@
-﻿namespace Fabros.EcsLite.Configurations
+﻿namespace FreeTeam.Test.Configurations
 {
     public sealed class OpponentConfig
     {

@@ -1,10 +1,10 @@
-using Fabros.EcsLite.Configurations;
-using Fabros.EcsLite.Ecs.Systems;
-using Fabros.EcsLite.Services;
+using FreeTeam.Test.Configurations;
+using FreeTeam.Test.Ecs.Systems;
+using FreeTeam.Test.Services;
 using Leopotam.EcsLite;
 using UnityEngine;
 
-namespace Fabros.EcsLite.Behaviours
+namespace FreeTeam.Test.Behaviours
 {
     public class EcsStartup : MonoBehaviour
     {

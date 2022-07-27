@@ -1,9 +1,9 @@
-﻿using Fabros.EcsLite.Behaviours;
-using Fabros.EcsLite.Ecs.Components;
+﻿using FreeTeam.Test.Behaviours;
+using FreeTeam.Test.Ecs.Components;
 using Leopotam.EcsLite;
 using UnityEngine;
 
-namespace Fabros.EcsLite.Ecs.Systems
+namespace FreeTeam.Test.Ecs.Systems
 {
     public class OpponentInitSystem : IEcsInitSystem
     {

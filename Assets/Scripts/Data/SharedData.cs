@@ -1,7 +1,7 @@
-﻿using Fabros.EcsLite.Configurations;
-using Fabros.EcsLite.Services;
+﻿using FreeTeam.Test.Configurations;
+using FreeTeam.Test.Services;
 
-namespace Fabros.EcsLite.Behaviours
+namespace FreeTeam.Test.Behaviours
 {
     public class SharedData
     {

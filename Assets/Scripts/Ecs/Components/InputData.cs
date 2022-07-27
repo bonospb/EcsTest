@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Fabros.EcsLite.Ecs.Components
+namespace FreeTeam.Test.Ecs.Components
 {
     public struct InputData
     {

@@ -1,4 +1,4 @@
-﻿namespace Fabros.EcsLite.Services
+﻿namespace FreeTeam.Test.Services
 {
     public sealed class TimeService
     {

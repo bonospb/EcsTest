@@ -1,7 +1,7 @@
-﻿using Fabros.EcsLite.Ecs.Components;
+﻿using FreeTeam.Test.Ecs.Components;
 using Leopotam.EcsLite;
 
-namespace Fabros.EcsLite.Ecs.Systems
+namespace FreeTeam.Test.Ecs.Systems
 {
     public class SetTransformSystem : IEcsRunSystem
     {

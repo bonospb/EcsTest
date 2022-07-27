@@ -1,8 +1,8 @@
-﻿using Fabros.EcsLite.Behaviours;
+﻿using FreeTeam.Test.Behaviours;
 using Leopotam.EcsLite;
 using UnityEngine;
 
-namespace Fabros.EcsLite.Ecs.Systems
+namespace FreeTeam.Test.Ecs.Systems
 {
     public class TimeSystem : IEcsRunSystem
     {
