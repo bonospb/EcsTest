@@ -10,7 +10,10 @@ namespace Fabros.EcsLite.Ecs.Systems
         {
             EcsWorld world = systems.GetWorld();
 
-            var filter = world.Filter<TransformData>().Inc<TransformReference>().End();
+            var filter = world
+                .Filter<TransformData>()
+                .Inc<TransformReference>()
+                .End();
 
             var transformDataPool = world.GetPool<TransformData>();
             var transformReferencePool = world.GetPool<TransformReference>();

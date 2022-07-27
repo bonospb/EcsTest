@@ -14,9 +14,9 @@ namespace Fabros.EcsLite.Ecs.Systems
 
             EcsWorld world = systems.GetWorld();
 
-            var filter = world.Filter<PlayerData>().Inc<InputData>().Inc<TransformData>().End();
+            var filter = world.Filter<MovementData>().Inc<InputData>().Inc<TransformData>().End();
 
-            var playerDataPool = world.GetPool<PlayerData>();
+            var playerDataPool = world.GetPool<MovementData>();
             var inputDataPool = world.GetPool<InputData>();
             var transformDataPool = world.GetPool<TransformData>();
 

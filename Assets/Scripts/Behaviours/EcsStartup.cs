@@ -9,14 +9,14 @@ namespace Fabros.EcsLite.Behaviours
     public class EcsStartup : MonoBehaviour
     {
         #region SerializeFields
-        [SerializeField] private PlayerConfig configuration;
-        [SerializeField] private SceneData sceneData;
+        [SerializeField] private SceneData sceneData = null;
         #endregion
 
         #region Private
-        private EcsWorld world;
-        private EcsSystems updateSystems;
-        private EcsSystems fixedUpdateSystem;
+        private EcsWorld world = null;
+
+        private EcsSystems updateSystems = null;
+        private EcsSystems fixedUpdateSystem = null;
         #endregion
 
         #region Unity methods
@@ -29,6 +29,7 @@ namespace Fabros.EcsLite.Behaviours
             updateSystems = new EcsSystems(world, sharedData);
             updateSystems
                 .Add(new PlayerInitSystem())
+                .Add(new OpponentInitSystem())
                 .Add(new PlayerInputSystem())
                 .Add(new CameraInitSystem())
                 .Add(new GateInitSystem())
@@ -45,6 +46,7 @@ namespace Fabros.EcsLite.Behaviours
                 .Add(new PushedButtonGateSystem())
                 .Add(new GateOpeningSystem())
                 .Add(new SetTransformSystem())
+                .Add(new GenerateOpponentInputDataSystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif

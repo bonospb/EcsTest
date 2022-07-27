@@ -1,6 +1,6 @@
 ﻿namespace Fabros.EcsLite.Ecs.Components
 {
-    public struct PlayerData
+    public struct MovementData
     {
         #region Public
         public float MoveSpeed;

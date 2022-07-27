@@ -13,20 +13,24 @@ namespace Fabros.EcsLite.Ecs.Systems
 
             EcsWorld world = systems.GetWorld();
 
-            var filter = world.Filter<PlayerData>().Inc<InputData>().Inc<TransformData>().End();
+            var filter = world
+                .Filter<MovementData>()
+                .Inc<InputData>()
+                .Inc<TransformData>()
+                .End();
 
-            var playerDataPool = world.GetPool<PlayerData>();
+            var movementDataPool = world.GetPool<MovementData>();
             var inputDataPool = world.GetPool<InputData>();
             var transformDataPool = world.GetPool<TransformData>();
 
             foreach (var entity in filter)
             {
-                ref var playerData = ref playerDataPool.Get(entity);
+                ref var movementData = ref movementDataPool.Get(entity);
                 ref var inputData = ref inputDataPool.Get(entity);
                 ref var transformData = ref transformDataPool.Get(entity);
 
                 var dt = sharedData.TimeService.FixedDeltaTime;
-                var speed = playerData.MoveSpeed * dt;
+                var speed = movementData.MoveSpeed * dt;
 
                 var direction = (inputData.TargetPosition - transformData.Position);
                 if (direction.magnitude <= speed)

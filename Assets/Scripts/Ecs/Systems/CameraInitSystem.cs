@@ -18,7 +18,7 @@ namespace Fabros.EcsLite.Ecs.Systems
             var cameraGO = Object.Instantiate(sharedData.SceneData.CameraPrefab);
             var virtualCameraComp = cameraGO.GetComponent<CinemachineVirtualCamera>();
 
-            var filter = world.Filter<PlayerData>().Inc<TransformReference>().End();
+            var filter = world.Filter<Player>().Inc<TransformReference>().End();
 
             var transformReferencePool = world.GetPool<TransformReference>();
 

@@ -14,22 +14,29 @@ namespace Fabros.EcsLite.Behaviours
         #endregion
 
         #region SerializeFields
-        [SerializeField] private Transform playerSpawnPoint;
-        [SerializeField] private GameObject playerPrefab;
+        [SerializeField] private Transform playerSpawnPoint = null;
+        [SerializeField] private Transform opponentSpawnPoint = null;
         [Space(10)]
-        [SerializeField] private Camera mainCamera;
-        [SerializeField] private GameObject cameraPrefab;
+        [SerializeField] private GameObject playerPrefab = null;
+        [SerializeField] private GameObject opponentPrefab = null;
         [Space(10)]
-        [SerializeField] private ButtonAndGatesLink[] buttonAndGatesLinks;
+        [SerializeField] private Camera mainCamera = null;
+        [SerializeField] private GameObject cameraPrefab = null;
+        [Space(10)]
+        [SerializeField] private ButtonAndGatesLink[] buttonAndGatesLinks = null;
         #endregion
 
         #region Public
         public Vector3 PlayerSpawnPointPosition => playerSpawnPoint.position;
         public Quaternion PlayerSpawnPointRotation => playerSpawnPoint.rotation;
 
+        public Vector3 OpponentSpawnPointPosition => opponentSpawnPoint.position;
+        public Quaternion OpponentSpawnPointRotation => opponentSpawnPoint.rotation;
+
         public Camera MainCamera => mainCamera;
 
         public GameObject PlayerPrefab => playerPrefab;
+        public GameObject OpponentPrefab => opponentPrefab;
         public GameObject CameraPrefab => cameraPrefab;
 
         public ButtonAndGatesLink[] ButtonAndGatesLinks => buttonAndGatesLinks;

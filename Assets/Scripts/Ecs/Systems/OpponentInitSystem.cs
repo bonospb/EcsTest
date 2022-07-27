@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fabros.EcsLite.Ecs.Systems
 {
-    public class PlayerInitSystem : IEcsInitSystem
+    public class OpponentInitSystem : IEcsInitSystem
     {
         #region Implementation methods
         public void Init(EcsSystems systems)
@@ -16,8 +16,8 @@ namespace Fabros.EcsLite.Ecs.Systems
 
             var entity = world.NewEntity();
 
-            var playerPool = world.GetPool<Player>();
-            playerPool.Add(entity);
+            var opponentPool = world.GetPool<Opponent>();
+            opponentPool.Add(entity);
 
             var movementDataPool = world.GetPool<MovementData>();
             movementDataPool.Add(entity);
@@ -31,21 +31,21 @@ namespace Fabros.EcsLite.Ecs.Systems
             var transformReferencePool = world.GetPool<TransformReference>();
             transformReferencePool.Add(entity);
 
-            GameObject playerGO = Object.Instantiate(
-                sharedData.SceneData.PlayerPrefab,
-                sharedData.SceneData.PlayerSpawnPointPosition,
-                sharedData.SceneData.PlayerSpawnPointRotation);
+            GameObject opponentGO = Object.Instantiate(
+                sharedData.SceneData.OpponentPrefab,
+                sharedData.SceneData.OpponentSpawnPointPosition,
+                sharedData.SceneData.OpponentSpawnPointRotation);
 
             ref var movementData = ref movementDataPool.Get(entity);
-            movementData.MoveSpeed = sharedData.Configurations.PlayerConfig.MoveSpeed;
-            movementData.RotationSpeed = sharedData.Configurations.PlayerConfig.RotationSpeed;
+            movementData.MoveSpeed = sharedData.Configurations.OpponentConfig.MoveSpeed;
+            movementData.RotationSpeed = sharedData.Configurations.OpponentConfig.RotationSpeed;
 
             ref var transformData = ref transformDataPool.Get(entity);
-            transformData.Position = sharedData.SceneData.PlayerSpawnPointPosition;
-            transformData.Rotation = sharedData.SceneData.PlayerSpawnPointRotation;
+            transformData.Position = sharedData.SceneData.OpponentSpawnPointPosition;
+            transformData.Rotation = sharedData.SceneData.OpponentSpawnPointRotation;
 
             ref var transformReference = ref transformReferencePool.Get(entity);
-            transformReference.Transform = playerGO.transform;
+            transformReference.Transform = opponentGO.transform;
         }
         #endregion
     }

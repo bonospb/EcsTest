@@ -29,12 +29,12 @@ namespace Fabros.EcsLite.Ecs.Systems
 
                 var entityGatesPairsDic = links.Gates.Where(x => x != null).ToDictionary(e => world.NewEntity(), y => y);
 
-                buttonData.gateEntities = entityGatesPairsDic.Keys.Select(x => world.PackEntity(x)).ToArray();
+                buttonData.GateEntities = entityGatesPairsDic.Keys.Select(x => world.PackEntity(x)).ToArray();
 
                 buttonTransformData.Position = links.Button.transform.position;
                 buttonTransformData.Rotation = links.Button.transform.rotation;
 
-                foreach (var packedEntity in buttonData.gateEntities)
+                foreach (var packedEntity in buttonData.GateEntities)
                 {
                     if (!packedEntity.Unpack(world, out var gateEntity))
                         continue;

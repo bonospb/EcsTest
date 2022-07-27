@@ -8,30 +8,29 @@ namespace Fabros.EcsLite.Ecs.Systems
         #region Implementation methods
         public void Run(EcsSystems systems)
         {
-            EcsWorld world = systems.GetWorld();
+            EcsWorld world = systems.GetWorld(); 
 
-            var playerFilter = world.Filter<PlayerData>().Inc<TransformData>().End();
-            var playerDataPool = world.GetPool<PlayerData>();
-            var playerTransformDataPool = world.GetPool<TransformData>();
+            var filter = world.Filter<MovementData>().Inc<TransformData>().End();
+            var movementDataPool = world.GetPool<MovementData>();
+            var transformDataPool = world.GetPool<TransformData>();
 
             var buttonFilter = world.Filter<ButtonData>().Inc<TransformData>().End();
             var buttonDataPool = world.GetPool<ButtonData>();
-            var buttonTransformDataPool = world.GetPool<TransformData>();
 
             var gateNeedOpenPool = world.GetPool<GateNeedOpenTag>();
 
-            foreach (var playerEntity in playerFilter)
+            foreach (var entity in filter)
             {
-                ref var playerData = ref playerDataPool.Get(playerEntity);
-                ref var playerTransformData = ref playerTransformDataPool.Get(playerEntity);
+                ref var playerData = ref movementDataPool.Get(entity);
+                ref var playerTransformData = ref transformDataPool.Get(entity);
 
                 foreach (var buttonEntity in buttonFilter)
                 {
                     ref var buttonData = ref buttonDataPool.Get(buttonEntity);
-                    ref var buttonTransformData = ref buttonTransformDataPool.Get(buttonEntity);
+                    ref var buttonTransformData = ref transformDataPool.Get(buttonEntity);
 
                     var distance = (buttonTransformData.Position - playerTransformData.Position).magnitude;
-                    foreach (var packedEntity in buttonData.gateEntities)
+                    foreach (var packedEntity in buttonData.GateEntities)
                     {
                         if (!packedEntity.Unpack(world, out var gateEntity))
                             continue;

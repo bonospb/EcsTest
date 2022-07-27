@@ -14,15 +14,15 @@ namespace Fabros.EcsLite.Ecs.Systems
 
             EcsWorld world = systems.GetWorld();
 
-            var filter = world.Filter<InputData>().End();
+            var filter = world.Filter<Player>().Inc<InputData>().End();
 
             var inputDataPool = world.GetPool<InputData>();
 
             foreach (var entity in filter)
             {
-                ref var input = ref inputDataPool.Get(entity);
+                ref var inputData = ref inputDataPool.Get(entity);
 
-                input.TargetPosition = sharedData.SceneData.PlayerSpawnPointPosition;
+                inputData.TargetPosition = sharedData.SceneData.PlayerSpawnPointPosition;
             }
         }
 
@@ -32,7 +32,11 @@ namespace Fabros.EcsLite.Ecs.Systems
 
             EcsWorld world = systems.GetWorld();
 
-            var filter = world.Filter<InputData>().Inc<TransformData>().End();
+            var filter = world
+                .Filter<Player>()
+                .Inc<InputData>()
+                .Inc<TransformData>()
+                .End();
 
             var inputDataPool = world.GetPool<InputData>();
             var transformDataPool = world.GetPool<TransformData>();
