@@ -14,20 +14,32 @@ namespace Fabros.EcsLite.Ecs.Systems
 
             EcsWorld world = systems.GetWorld();
 
-            var filter = world.Filter<GateData>().Inc<TransformData>().Inc<GateNeedOpenTag>().End();
+            var filter = world.Filter<IsButtonPushed>().Inc<ButtonData>().End();
 
+            var isButtonPushedPool = world.GetPool<IsButtonPushed>();
+            var buttonDataPool = world.GetPool<ButtonData>();
             var gateDataPool = world.GetPool<GateData>();
             var transformDataPool = world.GetPool<TransformData>();
 
             foreach (var entity in filter)
             {
-                ref var gateData = ref gateDataPool.Get(entity);
-                ref var transformData = ref transformDataPool.Get(entity);
+                ref var buttonData = ref buttonDataPool.Get(entity);
 
-                var dt = sharedData.TimeService.FixedDeltaTime;
-                var speed = gateData.OpenSpeed * dt;
+                foreach (var gatePackedEntity in buttonData.GateEntities)
+                {
+                    if (!gatePackedEntity.Unpack(world, out var gateEntity))
+                        continue;
 
-                transformData.Position += Vector3.down * speed;
+                    ref var gateData = ref gateDataPool.Get(gateEntity);
+                    ref var transformData = ref transformDataPool.Get(gateEntity);
+
+                    var dt = sharedData.TimeService.FixedDeltaTime;
+                    var speed = gateData.OpenSpeed * dt;
+
+                    transformData.Position += Vector3.down * speed;
+                }
+
+                isButtonPushedPool.Del(entity);
             }
         }
         #endregion

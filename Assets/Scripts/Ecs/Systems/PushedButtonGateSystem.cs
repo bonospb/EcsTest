@@ -10,42 +10,30 @@ namespace Fabros.EcsLite.Ecs.Systems
         {
             EcsWorld world = systems.GetWorld(); 
 
-            var filter = world.Filter<MovementData>().Inc<TransformData>().End();
+            var unitfilter = world.Filter<MovementData>().Inc<TransformData>().End();
+            var buttonFilter = world.Filter<ButtonData>().Inc<TransformData>().Exc<IsButtonPushed>().End();
+
             var movementDataPool = world.GetPool<MovementData>();
             var transformDataPool = world.GetPool<TransformData>();
-
-            var buttonFilter = world.Filter<ButtonData>().Inc<TransformData>().End();
             var buttonDataPool = world.GetPool<ButtonData>();
 
-            var gateNeedOpenPool = world.GetPool<GateNeedOpenTag>();
+            var isButtonPushedPool = world.GetPool<IsButtonPushed>();
 
-            foreach (var entity in filter)
+            foreach (var unityEntity in unitfilter)
             {
-                ref var playerData = ref movementDataPool.Get(entity);
-                ref var playerTransformData = ref transformDataPool.Get(entity);
+                ref var movementData = ref movementDataPool.Get(unityEntity);
+                ref var unitTransformData = ref transformDataPool.Get(unityEntity);
 
                 foreach (var buttonEntity in buttonFilter)
                 {
                     ref var buttonData = ref buttonDataPool.Get(buttonEntity);
                     ref var buttonTransformData = ref transformDataPool.Get(buttonEntity);
 
-                    var distance = (buttonTransformData.Position - playerTransformData.Position).magnitude;
-                    foreach (var packedEntity in buttonData.GateEntities)
-                    {
-                        if (!packedEntity.Unpack(world, out var gateEntity))
-                            continue;
+                    var distance = (buttonTransformData.Position - unitTransformData.Position).magnitude;
 
-                        if (distance <= 1)
-                        {
-                            if (!gateNeedOpenPool.Has(gateEntity))
-                                gateNeedOpenPool.Add(gateEntity);
-                        }
-                        else
-                        {
-                            if (gateNeedOpenPool.Has(gateEntity))
-                                gateNeedOpenPool.Del(gateEntity);
-                        }
-                    }
+                    var isButtonPushed = distance < 1f;
+                    if (isButtonPushed && !isButtonPushedPool.Has(buttonEntity))
+                        isButtonPushedPool.Add(buttonEntity);
                 }
             }
         }
