@@ -2,29 +2,30 @@
 using FreeTeam.Test.Behaviours;
 using FreeTeam.Test.Ecs.Components;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using UnityEngine;
 
 namespace FreeTeam.Test.Ecs.Systems
 {
     public class CameraInitSystem : IEcsInitSystem
     {
-        #region Implementation methods
-        public void Init(EcsSystems systems)
+        #region Inject
+        private readonly EcsFilterInject<Inc<Player, TransformReference>> filter = default;
+
+        private readonly EcsPoolInject<TransformReference> transformReferencePool = default;
+
+        private readonly EcsCustomInject<SceneData> sceneData = default;
+        #endregion
+
+        #region Implementation
+        public void Init(IEcsSystems systems)
         {
-            SharedData sharedData = systems.GetShared<SharedData>();
-
-            EcsWorld world = systems.GetWorld();
-
-            var cameraGO = Object.Instantiate(sharedData.SceneData.CameraPrefab);
+            var cameraGO = Object.Instantiate(sceneData.Value.CameraPrefab);
             var virtualCameraComp = cameraGO.GetComponent<CinemachineVirtualCamera>();
 
-            var filter = world.Filter<Player>().Inc<TransformReference>().End();
-
-            var transformReferencePool = world.GetPool<TransformReference>();
-
-            foreach (int entity in filter)
+            foreach (int entity in filter.Value)
             {
-                ref var transformReference = ref transformReferencePool.Get(entity);
+                ref var transformReference = ref transformReferencePool.Value.Get(entity);
 
                 virtualCameraComp.Follow = transformReference.Transform;
                 virtualCameraComp.LookAt = transformReference.Transform;

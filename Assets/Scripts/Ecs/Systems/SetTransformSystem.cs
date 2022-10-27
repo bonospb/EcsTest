@@ -1,29 +1,31 @@
 ﻿using FreeTeam.Test.Ecs.Components;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
+using UnityEngine;
 
 namespace FreeTeam.Test.Ecs.Systems
 {
     public class SetTransformSystem : IEcsRunSystem
     {
-        #region Implementation methods
-        public void Run(EcsSystems systems)
+        #region Inject
+        private readonly EcsFilterInject<Inc<TransformData, TransformReference>> filter = default;
+
+        private readonly EcsPoolInject<TransformData> transformDataPool = default;
+        private readonly EcsPoolInject<TransformReference> transformReferencePool = default;
+        #endregion
+
+        #region Implementation
+        public void Run(IEcsSystems systems)
         {
-            EcsWorld world = systems.GetWorld();
-
-            var filter = world
-                .Filter<TransformData>()
-                .Inc<TransformReference>()
-                .End();
-
-            var transformDataPool = world.GetPool<TransformData>();
-            var transformReferencePool = world.GetPool<TransformReference>();
-
-            foreach (var entity in filter)
+            foreach (var entity in filter.Value)
             {
-                ref var transformData = ref transformDataPool.Get(entity);
-                ref var transformReference = ref transformReferencePool.Get(entity);
+                ref var transformData = ref transformDataPool.Value.Get(entity);
+                ref var transformReference = ref transformReferencePool.Value.Get(entity);
 
-                transformReference.Transform.SetPositionAndRotation(transformData.Position, transformData.Rotation);
+                var position = transformData.Position;
+                var rotation = Quaternion.LookRotation(transformData.Direction);
+
+                transformReference.Transform.SetPositionAndRotation(position, rotation);
             }
         }
         #endregion

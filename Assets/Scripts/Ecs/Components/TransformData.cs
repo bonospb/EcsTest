@@ -6,7 +6,7 @@ namespace FreeTeam.Test.Ecs.Components
     {
         #region Public
         public Vector3 Position;
-        public Quaternion Rotation;
+        public Vector3 Direction;
         #endregion
     }
 }

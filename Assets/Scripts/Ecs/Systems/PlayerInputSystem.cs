@@ -1,55 +1,48 @@
 ﻿using FreeTeam.Test.Behaviours;
 using FreeTeam.Test.Ecs.Components;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using UnityEngine;
 
 namespace FreeTeam.Test.Ecs.Systems
 {
-    public class PlayerInputSystem : IEcsInitSystem, IEcsRunSystem
+    public class PlayerPointClickInputSystem : IEcsInitSystem, IEcsRunSystem
     {
-        #region Implemetation methods
-        public void Init(EcsSystems systems)
+        #region Constants
+        private const string ACTION_BTN_INPUT_NAME = "Action";
+        #endregion
+
+        #region Inject
+        private readonly EcsFilterInject<Inc<Player, InputData>> filter = default;
+
+        private readonly EcsPoolInject<InputData> inputDataPool = default;
+        private readonly EcsPoolInject<TransformData> transformDataPool = default;
+
+        private readonly EcsCustomInject<SceneData> sceneData = default;
+        #endregion
+
+        #region Implemetation
+        public void Init(IEcsSystems systems)
         {
-            SharedData sharedData = systems.GetShared<SharedData>();
-
-            EcsWorld world = systems.GetWorld();
-
-            var filter = world.Filter<Player>().Inc<InputData>().End();
-
-            var inputDataPool = world.GetPool<InputData>();
-
-            foreach (var entity in filter)
+            foreach (var entity in filter.Value)
             {
-                ref var inputData = ref inputDataPool.Get(entity);
+                ref var inputData = ref inputDataPool.Value.Get(entity);
 
-                inputData.TargetPosition = sharedData.SceneData.PlayerSpawnPointPosition;
+                inputData.TargetPosition = sceneData.Value.PlayerSpawnPointPosition;
             }
         }
 
-        public void Run(EcsSystems systems)
+        public void Run(IEcsSystems systems)
         {
-            SharedData sharedData = systems.GetShared<SharedData>();
-
-            EcsWorld world = systems.GetWorld();
-
-            var filter = world
-                .Filter<Player>()
-                .Inc<InputData>()
-                .Inc<TransformData>()
-                .End();
-
-            var inputDataPool = world.GetPool<InputData>();
-            var transformDataPool = world.GetPool<TransformData>();
-
-            foreach (var entity in filter)
+            foreach (var entity in filter.Value)
             {
-                ref var inputData = ref inputDataPool.Get(entity);
-                ref var transformData = ref transformDataPool.Get(entity);
+                ref var inputData = ref inputDataPool.Value.Get(entity);
+                ref var transformData = ref transformDataPool.Value.Get(entity);
 
-                if (Input.GetButtonUp("Action") && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                if (Input.GetButtonUp(ACTION_BTN_INPUT_NAME) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
-                    Plane playerPlane = new Plane(Vector3.up, transformData.Position);
-                    Ray ray = sharedData.SceneData.MainCamera.ScreenPointToRay(Input.mousePosition);
+                    var playerPlane = new Plane(Vector3.up, transformData.Position);
+                    var ray = sceneData.Value.MainCamera.ScreenPointToRay(Input.mousePosition);
 
                     if (!playerPlane.Raycast(ray, out var hitDistance))
                         continue;

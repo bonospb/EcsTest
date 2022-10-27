@@ -1,35 +1,32 @@
-﻿using FreeTeam.Test.Behaviours;
-using FreeTeam.Test.Ecs.Components;
+﻿using FreeTeam.Test.Ecs.Components;
+using FreeTeam.Test.Services;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 
 namespace FreeTeam.Test.Ecs.Systems
 {
     public class MovementSystem : IEcsRunSystem
     {
-        #region Implemetation methods
-        public void Run(EcsSystems systems)
+        #region Inject
+        private readonly EcsFilterInject<Inc<MovementData, InputData, TransformData>> filter = default;
+
+        private readonly EcsPoolInject<MovementData> movementDataPool = default;
+        private readonly EcsPoolInject<InputData> inputDataPool = default;
+        private readonly EcsPoolInject<TransformData> transformDataPool = default;
+
+        private readonly EcsCustomInject<TimeService> timeService = default;
+        #endregion
+
+        #region Implemetation
+        public void Run(IEcsSystems systems)
         {
-            SharedData sharedData = systems.GetShared<SharedData>();
-
-            EcsWorld world = systems.GetWorld();
-
-            var filter = world
-                .Filter<MovementData>()
-                .Inc<InputData>()
-                .Inc<TransformData>()
-                .End();
-
-            var movementDataPool = world.GetPool<MovementData>();
-            var inputDataPool = world.GetPool<InputData>();
-            var transformDataPool = world.GetPool<TransformData>();
-
-            foreach (var entity in filter)
+            foreach (var entity in filter.Value)
             {
-                ref var movementData = ref movementDataPool.Get(entity);
-                ref var inputData = ref inputDataPool.Get(entity);
-                ref var transformData = ref transformDataPool.Get(entity);
+                ref var movementData = ref movementDataPool.Value.Get(entity);
+                ref var inputData = ref inputDataPool.Value.Get(entity);
+                ref var transformData = ref transformDataPool.Value.Get(entity);
 
-                var dt = sharedData.TimeService.FixedDeltaTime;
+                var dt = timeService.Value.FixedDeltaTime;
                 var speed = movementData.MoveSpeed * dt;
 
                 var direction = (inputData.TargetPosition - transformData.Position);

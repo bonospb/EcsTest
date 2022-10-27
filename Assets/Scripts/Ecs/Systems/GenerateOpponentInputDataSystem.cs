@@ -1,43 +1,47 @@
-﻿using FreeTeam.Test.Behaviours;
-using FreeTeam.Test.Ecs.Components;
+﻿using FreeTeam.Test.Ecs.Components;
+using FreeTeam.Test.Services;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using UnityEngine;
 
 namespace FreeTeam.Test.Ecs.Systems
 {
     public class GenerateOpponentInputDataSystem : IEcsRunSystem
     {
-        private float delay = 3f;
+        #region Constants
+        private const float DELAY = 3f;
+        #endregion
+
+        #region Private
         private float timeout = 0f;
+        #endregion
 
-        public void Run(EcsSystems systems)
+        #region Inject
+        private readonly EcsFilterInject<Inc<Opponent, InputData>> filter = default;
+
+        private readonly EcsPoolInject<InputData> inputDataPool = default;
+
+        private readonly EcsCustomInject<TimeService> timeService = default;
+        #endregion
+
+        #region Implementation
+        public void Run(IEcsSystems systems)
         {
-            SharedData shared = systems.GetShared<SharedData>();
-
-            var dt = shared.TimeService.FixedDeltaTime;
+            var dt = timeService.Value.FixedDeltaTime;
 
             timeout -= dt;
 
             if (timeout > 0)
                 return;
 
-            var world = systems.GetWorld();
-
-            var filter = world
-                .Filter<Opponent>()
-                .Inc<InputData>()
-                .End();
-
-            var inputDataPool = world.GetPool<InputData>();
-
-            foreach (var entity in filter)
+            foreach (var entity in filter.Value)
             {
-                ref var inputData = ref inputDataPool.Get(entity);
-
+                ref var inputData = ref inputDataPool.Value.Get(entity);
                 inputData.TargetPosition = new Vector3(Random.Range(-25, 25), 0f, Random.Range(-25, 25));
             }
 
-            timeout = delay;
+            timeout = DELAY;
         }
+        #endregion
     }
 }
