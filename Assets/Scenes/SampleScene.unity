@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressProvider: {fileID: 474149441}
-  openLocalPosition: {x: 0, y: -3, z: 0}
+  openPositionOffset: {x: 0, y: -3, z: 0}
 --- !u!1 &635880848
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressProvider: {fileID: 693427020}
-  openLocalPosition: {x: 0, y: -3, z: 0}
+  openPositionOffset: {x: 0, y: -3, z: 0}
 --- !u!1 &812526951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,7 +1153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressProvider: {fileID: 832703002}
-  openLocalPosition: {x: 0, y: -3, z: 0}
+  openPositionOffset: {x: 0, y: -3, z: 0}
 --- !u!1 &1085357370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,7 +1264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressProvider: {fileID: 1085357375}
-  openLocalPosition: {x: 0, y: -3, z: 0}
+  openPositionOffset: {x: 0, y: -3, z: 0}
 --- !u!1 &1088402245
 GameObject:
   m_ObjectHideFlags: 0
