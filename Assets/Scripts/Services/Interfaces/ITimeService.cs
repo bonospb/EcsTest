@@ -1,6 +1,6 @@
-﻿namespace FreeTeam.Test.Common
+﻿namespace FreeTeam.Test.Services
 {
-    internal interface ITimeService
+    public interface ITimeService
     {
         float DeltaTime { get; }
         float FixedDeltaTime { get; }

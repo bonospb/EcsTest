@@ -1,6 +1,6 @@
 ﻿namespace FreeTeam.Test.Configurations
 {
-    public sealed class Configs
+    public sealed class Configs : IConfigs
     {
         #region Public
         public PlayerConfig PlayerConfig { get; private set; } = new PlayerConfig();

@@ -10,13 +10,10 @@ namespace FreeTeam.Test.Behaviours
     public class EcsStartup : MonoBehaviour
     {
         #region SerializeFields
-        [SerializeField] private TimeService timeService = null;
-        [SerializeField] private SceneData sceneData = null;
+        [SerializeField] private SceneContext sceneData = null;
         #endregion
 
         #region Private
-        private Configs configs = null;
-
         private EcsWorld world = null;
 
         private EcsSystems updateSystems = null;
@@ -24,10 +21,22 @@ namespace FreeTeam.Test.Behaviours
         #endregion
 
         #region Unity methods
-        private void Start()
-        {
-            configs = new Configs();
+        private void Start() =>
+            Construct(new Configs(), new TimeService());
 
+        private void Update() =>
+            updateSystems?.Run();
+
+        private void FixedUpdate() =>
+            fixedUpdateSystem?.Run();
+
+        private void OnDestroy() =>
+            Destruct();
+        #endregion
+
+        #region Public methods
+        public void Construct(IConfigs configs, ITimeService timeService)
+        {
             world = new EcsWorld();
 
             updateSystems = new EcsSystems(world);
@@ -37,11 +46,17 @@ namespace FreeTeam.Test.Behaviours
                 .Add(new PlayerPointClickInputSystem())
                 .Add(new CameraInitSystem())
                 .Add(new GateInitSystem())
+
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
-                .Inject(configs, timeService, sceneData)
+
+                .Inject(configs)
+                .Inject(timeService)
+                .Inject(sceneData)
+
                 .Init();
+
 
             fixedUpdateSystem = new EcsSystems(world);
             fixedUpdateSystem
@@ -49,22 +64,22 @@ namespace FreeTeam.Test.Behaviours
                 .Add(new RotationSystem())
                 .Add(new PushedButtonGateSystem())
                 .Add(new GateOpeningSystem())
+                .Add(new SetProgressSystem())
                 .Add(new SetTransformSystem())
                 .Add(new GenerateOpponentInputDataSystem())
+
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
-                .Inject(configs, timeService, sceneData)
+
+                .Inject(configs)
+                .Inject(timeService)
+                .Inject(sceneData)
+
                 .Init();
         }
 
-        private void Update() =>
-            updateSystems?.Run();
-
-        private void FixedUpdate() =>
-            fixedUpdateSystem?.Run();
-
-        private void OnDestroy()
+        public void Destruct()
         {
             fixedUpdateSystem?.Destroy();
             fixedUpdateSystem = null;

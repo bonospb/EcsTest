@@ -15,7 +15,7 @@ namespace FreeTeam.Test.Ecs.Systems
         private readonly EcsPoolInject<InputData> inputDataPool = default;
         private readonly EcsPoolInject<TransformData> transformDataPool = default;
 
-        private readonly EcsCustomInject<TimeService> timeService = default;
+        private readonly EcsCustomInject<ITimeService> timeService = default;
         #endregion
 
         #region Implementation
@@ -33,8 +33,9 @@ namespace FreeTeam.Test.Ecs.Systems
                 var angle = Vector3.SignedAngle(transformData.Direction, targetDir, Vector3.up);
 
                 var rotationSpeed = Mathf.Min(playerData.RotationSpeed * dt, Mathf.Abs(angle));
+                var direction = (Quaternion.AngleAxis(Mathf.Sign(angle) * rotationSpeed, Vector3.up) * transformData.Direction);
 
-                transformData.Direction = (Quaternion.AngleAxis(Mathf.Sign(angle) * rotationSpeed, Vector3.up) * transformData.Direction);
+                transformData.Direction = direction;
             }
         }
         #endregion

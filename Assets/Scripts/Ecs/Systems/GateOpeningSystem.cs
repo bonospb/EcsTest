@@ -16,9 +16,9 @@ namespace FreeTeam.Test.Ecs.Systems
         private readonly EcsPoolInject<IsButtonPushed> isButtonPushedPool = default;
         private readonly EcsPoolInject<ButtonData> buttonDataPool = default;
         private readonly EcsPoolInject<GateData> gateDataPool = default;
-        private readonly EcsPoolInject<TransformData> transformDataPool = default;
+        private readonly EcsPoolInject<ProgressData> progressDataPool = default;
 
-        private readonly EcsCustomInject<TimeService> timeService = default;
+        private readonly EcsCustomInject<ITimeService> timeService = default;
         #endregion
 
         #region Implemetation
@@ -34,12 +34,13 @@ namespace FreeTeam.Test.Ecs.Systems
                         continue;
 
                     ref var gateData = ref gateDataPool.Value.Get(gateEntity);
-                    ref var transformData = ref transformDataPool.Value.Get(gateEntity);
+                    ref var progressData = ref progressDataPool.Value.Get(gateEntity);
 
                     var dt = timeService.Value.FixedDeltaTime;
                     var speed = gateData.OpenSpeed * dt;
 
-                    transformData.Position += Vector3.down * speed;
+                    progressData.Progress += speed;
+                    progressData.Progress = Mathf.Clamp01(progressData.Progress);
                 }
 
                 isButtonPushedPool.Value.Del(entity);

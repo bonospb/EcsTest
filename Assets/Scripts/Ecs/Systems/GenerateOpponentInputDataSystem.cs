@@ -21,7 +21,7 @@ namespace FreeTeam.Test.Ecs.Systems
 
         private readonly EcsPoolInject<InputData> inputDataPool = default;
 
-        private readonly EcsCustomInject<TimeService> timeService = default;
+        private readonly EcsCustomInject<ITimeService> timeService = default;
         #endregion
 
         #region Implementation

@@ -18,8 +18,8 @@ namespace FreeTeam.Test.Ecs.Systems
         private readonly EcsPoolInject<TransformData> transformDataPool = default;
         private readonly EcsPoolInject<TransformReference> transformReferencePool = default;
 
-        private readonly EcsCustomInject<Configs> configs = default;
-        private readonly EcsCustomInject<SceneData> sceneData = default;
+        private readonly EcsCustomInject<IConfigs> configs = default;
+        private readonly EcsCustomInject<SceneContext> sceneData = default;
         #endregion
 
         #region Implementation

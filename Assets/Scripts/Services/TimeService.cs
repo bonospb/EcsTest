@@ -1,9 +1,8 @@
-﻿using FreeTeam.Test.Common;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace FreeTeam.Test.Services
 {
-    public class TimeService : MonoBehaviour, ITimeService
+    public class TimeService : ITimeService
     {
         #region Implementation
         public float DeltaTime => Time.deltaTime;

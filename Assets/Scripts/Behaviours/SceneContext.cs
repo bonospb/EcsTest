@@ -2,7 +2,7 @@
 
 namespace FreeTeam.Test.Behaviours
 {
-    public class SceneData : MonoBehaviour
+    public class SceneContext : MonoBehaviour
     {
         #region Internal
         [System.Serializable]
