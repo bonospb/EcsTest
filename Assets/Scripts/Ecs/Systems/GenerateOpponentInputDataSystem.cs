@@ -10,9 +10,11 @@ namespace FreeTeam.Test.Ecs.Systems
     {
         #region Constants
         private const float DELAY = 3f;
+
         #endregion
 
         #region Private
+        private readonly Range range = new Range() { Min = -25, Max = 25 };
         private float timeout = 0f;
         #endregion
 
@@ -37,7 +39,10 @@ namespace FreeTeam.Test.Ecs.Systems
             foreach (var entity in filter.Value)
             {
                 ref var inputData = ref inputDataPool.Value.Get(entity);
-                inputData.TargetPosition = new Vector3(Random.Range(-25, 25), 0f, Random.Range(-25, 25));
+                inputData.TargetPosition = new Vector3(
+                    Random.Range(range.Min, range.Max), 
+                    0f, 
+                    Random.Range(range.Min, range.Max));
             }
 
             timeout = DELAY;
