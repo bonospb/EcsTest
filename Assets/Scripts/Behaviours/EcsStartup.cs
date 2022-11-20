@@ -1,8 +1,10 @@
 using FreeTeam.Test.Configurations;
+using FreeTeam.Test.Ecs.Components;
 using FreeTeam.Test.Ecs.Systems;
 using FreeTeam.Test.Services;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
 
 namespace FreeTeam.Test.Behaviours
@@ -71,6 +73,8 @@ namespace FreeTeam.Test.Behaviours
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
+
+                .DelHere<IsButtonPushed>()
 
                 .Inject(configs)
                 .Inject(timeService)

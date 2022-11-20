@@ -11,7 +11,7 @@ namespace FreeTeam.Test.Ecs.Systems
         #region Inject
         private readonly EcsWorldInject world = default;
 
-        private readonly EcsFilterInject<Inc<IsButtonPushed, ButtonData>> filter = default;
+        private readonly EcsFilterInject<Inc<ButtonData>> filter = default;
 
         private readonly EcsPoolInject<IsButtonPushed> isButtonPushedPool = default;
         private readonly EcsPoolInject<ButtonData> buttonDataPool = default;
@@ -39,11 +39,12 @@ namespace FreeTeam.Test.Ecs.Systems
                     var dt = timeService.Value.FixedDeltaTime;
                     var speed = gateData.OpenSpeed * dt;
 
+                    if (!isButtonPushedPool.Value.Has(entity))
+                        speed *= -1;
+
                     progressData.Progress += speed;
                     progressData.Progress = Mathf.Clamp01(progressData.Progress);
                 }
-
-                isButtonPushedPool.Value.Del(entity);
             }
         }
         #endregion
