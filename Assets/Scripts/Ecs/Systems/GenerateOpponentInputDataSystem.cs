@@ -10,7 +10,6 @@ namespace FreeTeam.Test.Ecs.Systems
     {
         #region Constants
         private const float DELAY = 3f;
-
         #endregion
 
         #region Private
@@ -32,7 +31,6 @@ namespace FreeTeam.Test.Ecs.Systems
             var dt = timeService.Value.DeltaTime;
 
             timeout -= dt;
-
             if (timeout > 0)
                 return;
 

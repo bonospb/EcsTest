@@ -36,7 +36,7 @@ namespace FreeTeam.Test.Ecs.Systems
                     ref var gateData = ref gateDataPool.Value.Get(gateEntity);
                     ref var progressData = ref progressDataPool.Value.Get(gateEntity);
 
-                    var dt = timeService.Value.FixedDeltaTime;
+                    var dt = timeService.Value.DeltaTime;
                     var speed = gateData.OpenSpeed * dt;
 
                     if (!isButtonPushedPool.Value.Has(entity))

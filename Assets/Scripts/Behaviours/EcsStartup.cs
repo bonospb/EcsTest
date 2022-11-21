@@ -12,25 +12,28 @@ namespace FreeTeam.Test.Behaviours
     public class EcsStartup : MonoBehaviour
     {
         #region SerializeFields
+        [SerializeField] private bool isLocalRun = true;
         [SerializeField] private SceneContext sceneContext = null;
         #endregion
 
         #region Private
         private EcsWorld world = null;
 
-        private EcsSystems updateSystems = null;
-        private EcsSystems fixedUpdateSystem = null;
+        private EcsSystems initSystems = null;
+        private EcsSystems updateSystem = null;
         #endregion
 
         #region Unity methods
-        private void Start() =>
+        private void Start()
+        {
+            if (!isLocalRun)
+                return;
+
             Construct(new Configs(), new TimeService());
+        }
 
         private void Update() =>
-            updateSystems?.Run();
-
-        private void FixedUpdate() =>
-            fixedUpdateSystem?.Run();
+            updateSystem?.Run();
 
         private void OnDestroy() =>
             Destruct();
@@ -41,17 +44,12 @@ namespace FreeTeam.Test.Behaviours
         {
             world = new EcsWorld();
 
-            updateSystems = new EcsSystems(world);
-            updateSystems
+            initSystems = new EcsSystems(world);
+            initSystems
                 .Add(new PlayerInitSystem())
                 .Add(new OpponentInitSystem())
-                .Add(new PlayerPointClickInputSystem())
                 .Add(new CameraInitSystem())
                 .Add(new GateInitSystem())
-
-#if UNITY_EDITOR
-                .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
-#endif
 
                 .Inject(configs)
                 .Inject(timeService)
@@ -60,8 +58,9 @@ namespace FreeTeam.Test.Behaviours
                 .Init();
 
 
-            fixedUpdateSystem = new EcsSystems(world);
-            fixedUpdateSystem
+            updateSystem = new EcsSystems(world);
+            updateSystem
+                .Add(new PlayerPointClickInputSystem())
                 .Add(new MovementSystem())
                 .Add(new RotationSystem())
                 .Add(new PushedButtonGateSystem())
@@ -85,11 +84,11 @@ namespace FreeTeam.Test.Behaviours
 
         public void Destruct()
         {
-            fixedUpdateSystem?.Destroy();
-            fixedUpdateSystem = null;
+            updateSystem?.Destroy();
+            updateSystem = null;
 
-            updateSystems?.Destroy();
-            updateSystems = null;
+            initSystems?.Destroy();
+            initSystems = null;
 
             world?.Destroy();
             world = null;

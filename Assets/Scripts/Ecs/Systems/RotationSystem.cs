@@ -27,7 +27,7 @@ namespace FreeTeam.Test.Ecs.Systems
                 ref var inputData = ref inputDataPool.Value.Get(entity);
                 ref var transformData = ref transformDataPool.Value.Get(entity);
 
-                var dt = timeService.Value.FixedDeltaTime;
+                var dt = timeService.Value.DeltaTime;
 
                 var targetDir = (inputData.TargetPosition - transformData.Position).normalized;
                 var angle = Vector3.SignedAngle(transformData.Direction, targetDir, Vector3.up);
