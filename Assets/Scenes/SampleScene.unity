@@ -1410,7 +1410,7 @@ GameObject:
   - component: {fileID: 1290477823}
   - component: {fileID: 1290477824}
   m_Layer: 0
-  m_Name: Ecs
+  m_Name: EcsStartup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1443,7 +1443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 746d0bc79bcd9b34eb45bb82ca467937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneData: {fileID: 1686358389}
+  sceneContext: {fileID: 1686358389}
 --- !u!1 &1567216955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,7 +1523,7 @@ GameObject:
   - component: {fileID: 1686358390}
   - component: {fileID: 1686358389}
   m_Layer: 0
-  m_Name: SceneData
+  m_Name: SceneContext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

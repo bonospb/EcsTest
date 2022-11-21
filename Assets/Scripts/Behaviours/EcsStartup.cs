@@ -12,7 +12,7 @@ namespace FreeTeam.Test.Behaviours
     public class EcsStartup : MonoBehaviour
     {
         #region SerializeFields
-        [SerializeField] private SceneContext sceneData = null;
+        [SerializeField] private SceneContext sceneContext = null;
         #endregion
 
         #region Private
@@ -55,7 +55,7 @@ namespace FreeTeam.Test.Behaviours
 
                 .Inject(configs)
                 .Inject(timeService)
-                .Inject(sceneData)
+                .Inject(sceneContext)
 
                 .Init();
 
@@ -78,7 +78,7 @@ namespace FreeTeam.Test.Behaviours
 
                 .Inject(configs)
                 .Inject(timeService)
-                .Inject(sceneData)
+                .Inject(sceneContext)
 
                 .Init();
         }

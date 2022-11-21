@@ -14,7 +14,7 @@ namespace FreeTeam.Test.Ecs.Systems
         #endregion
 
         #region Private
-        private readonly Range range = new Range() { Min = -25, Max = 25 };
+        private readonly Range range = new() { Min = -25, Max = 25 };
         private float timeout = 0f;
         #endregion
 
@@ -29,7 +29,7 @@ namespace FreeTeam.Test.Ecs.Systems
         #region Implementation
         public void Run(IEcsSystems systems)
         {
-            var dt = timeService.Value.FixedDeltaTime;
+            var dt = timeService.Value.DeltaTime;
 
             timeout -= dt;
 
