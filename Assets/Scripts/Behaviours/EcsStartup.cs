@@ -61,18 +61,26 @@ namespace FreeTeam.Test.Behaviours
             updateSystem = new EcsSystems(world);
             updateSystem
                 .Add(new PlayerPointClickInputSystem())
+                .Add(new GenerateOpponentInputDataSystem())
+
+                .Add(new AnimateCharacterSystem())
+
                 .Add(new MovementSystem())
                 .Add(new RotationSystem())
+
                 .Add(new PushedButtonGateSystem())
                 .Add(new GateOpeningSystem())
+
                 .Add(new SetProgressSystem())
+
                 .Add(new SetTransformSystem())
-                .Add(new GenerateOpponentInputDataSystem())
+                .Add(new AnimateCharacterSystem())
 
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
 
+                .DelHere<IsMoving>()
                 .DelHere<IsButtonPushed>()
 
                 .Inject(configs)

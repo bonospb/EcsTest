@@ -1,4 +1,6 @@
-﻿namespace FreeTeam.Test.Ecs.Components
+﻿using UnityEngine;
+
+namespace FreeTeam.Test.Ecs.Components
 {
     public struct MovementData
     {

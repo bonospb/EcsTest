@@ -1,7 +1,7 @@
 ﻿using FreeTeam.Test.Behaviours.Providers;
 using UnityEngine;
 
-namespace Assets.Scripts.Views
+namespace FreeTeam.Test.Views
 {
     public class GateView : MonoBehaviour
     {

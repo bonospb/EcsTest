@@ -46,11 +46,12 @@ namespace FreeTeam.Test.Ecs.Systems
                         continue;
 
                     ref var gateData = ref gateDataPool.Value.Add(gateEntity);
-                    ref var gateProgressData = ref progressDataPool.Value.Add(gateEntity);
-                    ref var gateProviderReference = ref providerReferencePool.Value.Add(gateEntity);
-
                     gateData.OpenSpeed = configs.Value.GateConfig.GateOpenSpeed;
+
+                    ref var gateProgressData = ref progressDataPool.Value.Add(gateEntity);
                     gateProgressData.Progress = 0f;
+
+                    ref var gateProviderReference = ref providerReferencePool.Value.Add(gateEntity);
                     gateProviderReference.Provider = entityGatesPairsDic[gateEntity].GetComponentInChildren<ProgressProvider>();
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using FreeTeam.Test.Behaviours;
+using FreeTeam.Test.Behaviours.Providers;
 using FreeTeam.Test.Configurations;
 using FreeTeam.Test.Ecs.Components;
 using Leopotam.EcsLite;
@@ -13,10 +14,12 @@ namespace FreeTeam.Test.Ecs.Systems
         private readonly EcsWorldInject world = default;
 
         private readonly EcsPoolInject<Player> playerPool = default;
-        private readonly EcsPoolInject<MovementData> movementDataPool = default;
+        private readonly EcsPoolInject<Unit> unitPool = default;
         private readonly EcsPoolInject<InputData> inputDataPool = default;
+        private readonly EcsPoolInject<MovementData> movementDataPool = default;
         private readonly EcsPoolInject<TransformData> transformDataPool = default;
         private readonly EcsPoolInject<TransformReference> transformReferencePool = default;
+        private readonly EcsPoolInject<ProviderReference<AnimationTypes>> providerReferencePool = default;
 
         private readonly EcsCustomInject<IConfigs> configs = default;
         private readonly EcsCustomInject<SceneContext> sceneData = default;
@@ -28,6 +31,7 @@ namespace FreeTeam.Test.Ecs.Systems
             var entity = world.Value.NewEntity();
 
             playerPool.Value.Add(entity);
+            unitPool.Value.Add(entity);
             inputDataPool.Value.Add(entity);
 
             GameObject playerGO = Object.Instantiate(
@@ -45,6 +49,9 @@ namespace FreeTeam.Test.Ecs.Systems
 
             ref var transformReference = ref transformReferencePool.Value.Add(entity);
             transformReference.Transform = playerGO.transform;
+
+            ref var providerReference = ref providerReferencePool.Value.Add(entity);
+            providerReference.Provider = playerGO.GetComponentInChildren<AnimatorProvider>();
         }
         #endregion
     }
