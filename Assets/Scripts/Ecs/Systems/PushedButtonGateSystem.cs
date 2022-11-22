@@ -8,7 +8,7 @@ namespace FreeTeam.Test.Ecs.Systems
     {
         #region Inject
         private readonly EcsFilterInject<Inc<MovementData, TransformData>> unitFilter = default;
-        private readonly EcsFilterInject<Inc<ButtonData, TransformData>, Exc<IsButtonPushed>> buttonFilter = default;
+        private readonly EcsFilterInject<Inc<ButtonData, TransformData>> buttonFilter = default;
 
         private readonly EcsPoolInject<MovementData> movementDataPool = default;
         private readonly EcsPoolInject<TransformData> transformDataPool = default;

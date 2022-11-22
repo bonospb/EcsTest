@@ -2,6 +2,7 @@
 using FreeTeam.Test.Services;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FreeTeam.Test.Ecs.Systems
@@ -21,9 +22,15 @@ namespace FreeTeam.Test.Ecs.Systems
         private readonly EcsCustomInject<ITimeService> timeService = default;
         #endregion
 
+        #region Private
+        private readonly Dictionary<int, bool> openabledGateEntities = new();
+        #endregion
+
         #region Implemetation
         public void Run(IEcsSystems systems)
         {
+            openabledGateEntities.Clear();
+
             foreach (var entity in filter.Value)
             {
                 ref var buttonData = ref buttonDataPool.Value.Get(entity);
@@ -33,18 +40,28 @@ namespace FreeTeam.Test.Ecs.Systems
                     if (!gatePackedEntity.Unpack(world.Value, out var gateEntity))
                         continue;
 
-                    ref var gateData = ref gateDataPool.Value.Get(gateEntity);
-                    ref var progressData = ref progressDataPool.Value.Get(gateEntity);
+                    var isOpenabled = isButtonPushedPool.Value.Has(entity);
 
-                    var dt = timeService.Value.DeltaTime;
-                    var speed = gateData.OpenSpeed * dt;
-
-                    if (!isButtonPushedPool.Value.Has(entity))
-                        speed *= -1;
-
-                    progressData.Progress += speed;
-                    progressData.Progress = Mathf.Clamp01(progressData.Progress);
+                    if (!openabledGateEntities.ContainsKey(gateEntity))
+                        openabledGateEntities.Add(gateEntity, isOpenabled);
+                    else
+                        openabledGateEntities[gateEntity] |= isOpenabled;
                 }
+            }
+
+            foreach (var gateState in openabledGateEntities)
+            {
+                var gateEntity = gateState.Key;
+                var isOpenabled = gateState.Value;
+
+                ref var gateData = ref gateDataPool.Value.Get(gateEntity);
+                ref var progressData = ref progressDataPool.Value.Get(gateEntity);
+
+                var dt = timeService.Value.DeltaTime;
+                var speed = gateData.OpenSpeed * dt;
+
+                progressData.Progress += isOpenabled ? speed : -speed;
+                progressData.Progress = Mathf.Clamp01(progressData.Progress);
             }
         }
         #endregion

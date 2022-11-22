@@ -27,6 +27,12 @@ namespace FreeTeam.Test.Ecs.Systems
         #region Implemetation
         public void Init(IEcsSystems systems)
         {
+            var allGates = sceneData.Value.ButtonAndGatesLinks
+                .SelectMany(x => x.Gates)
+                .Where(x => x != null)
+                .Distinct()
+                .ToDictionary(x => x, y => world.Value.NewEntity());
+
             foreach (var links in sceneData.Value.ButtonAndGatesLinks)
             {
                 var buttonEntity = world.Value.NewEntity();
@@ -34,26 +40,28 @@ namespace FreeTeam.Test.Ecs.Systems
                 ref var buttonData = ref buttonDataPool.Value.Add(buttonEntity);
                 ref var buttonTransformData = ref transformDataPool.Value.Add(buttonEntity);
 
-                var entityGatesPairsDic = links.Gates.Where(x => x != null).ToDictionary(e => world.Value.NewEntity(), y => y);
-
-                buttonData.GateEntities = entityGatesPairsDic.Keys.Select(x => world.Value.PackEntity(x)).ToArray();
+                buttonData.GateEntities = links.Gates
+                    .Where(x => x != null)
+                    .Select(x => world.Value.PackEntity(allGates[x]))
+                    .ToArray();
 
                 buttonTransformData.Position = links.Button.transform.position;
                 buttonTransformData.Direction = (links.Button.transform.rotation * Vector3.forward).normalized;
-                foreach (var packedEntity in buttonData.GateEntities)
-                {
-                    if (!packedEntity.Unpack(world.Value, out var gateEntity))
-                        continue;
+            }
 
-                    ref var gateData = ref gateDataPool.Value.Add(gateEntity);
-                    gateData.OpenSpeed = configs.Value.GateConfig.GateOpenSpeed;
+            foreach (var gatePair in allGates)
+            {
+                var gateGameObject = gatePair.Key;
+                var gateEntity = gatePair.Value;
 
-                    ref var gateProgressData = ref progressDataPool.Value.Add(gateEntity);
-                    gateProgressData.Progress = 0f;
+                ref var gateData = ref gateDataPool.Value.Add(gateEntity);
+                gateData.OpenSpeed = configs.Value.GateConfig.GateOpenSpeed;
 
-                    ref var gateProviderReference = ref providerReferencePool.Value.Add(gateEntity);
-                    gateProviderReference.Provider = entityGatesPairsDic[gateEntity].GetComponentInChildren<ProgressProvider>();
-                }
+                ref var gateProgressData = ref progressDataPool.Value.Add(gateEntity);
+                gateProgressData.Progress = 0f;
+
+                ref var gateProviderReference = ref providerReferencePool.Value.Add(gateEntity);
+                gateProviderReference.Provider = gateGameObject.GetComponentInChildren<ProgressProvider>();
             }
         }
         #endregion
