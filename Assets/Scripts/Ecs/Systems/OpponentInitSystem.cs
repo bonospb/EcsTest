@@ -40,12 +40,12 @@ namespace FreeTeam.Test.Ecs.Systems
                 sceneData.Value.OpponentSpawnPointRotation);
 
             ref var movementData = ref movementDataPool.Value.Add(entity);
-            movementData.MoveSpeed = configs.Value.PlayerConfig.MoveSpeed;
-            movementData.RotationSpeed = configs.Value.PlayerConfig.RotationSpeed;
+            movementData.MoveSpeed = configs.Value.OpponentConfig.MoveSpeed;
+            movementData.RotationSpeed = configs.Value.OpponentConfig.RotationSpeed;
 
             ref var transformData = ref transformDataPool.Value.Add(entity);
-            transformData.Position = sceneData.Value.PlayerSpawnPointPosition;
-            transformData.Direction = (sceneData.Value.PlayerSpawnPointRotation * Vector3.forward).normalized;
+            transformData.Position = sceneData.Value.OpponentSpawnPointPosition;
+            transformData.Direction = (sceneData.Value.OpponentSpawnPointRotation * Vector3.forward).normalized;
 
             ref var transformReference = ref transformReferencePool.Value.Add(entity);
             transformReference.Transform = opponentGO.transform;
