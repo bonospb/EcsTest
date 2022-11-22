@@ -8,8 +8,6 @@ namespace FreeTeam.Test.Ecs.Systems
     public class AnimateCharacterSystem : IEcsRunSystem
     {
         #region Inject
-        private readonly EcsWorldInject world = default;
-
         private readonly EcsFilterInject<Inc<MovementData>> movementFilter = default;
 
         private readonly EcsPoolInject<IsMoving> isMovingPool = default;
