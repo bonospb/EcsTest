@@ -1548,6 +1548,10 @@ MonoBehaviour:
     type: 3}
   opponentPrefab: {fileID: 6486056849169410655, guid: 7be93cd03bdb94c48ac43b1dc56bc3b7,
     type: 3}
+  leftFootprintPrefab: {fileID: 7600920622916232644, guid: 0c99fede1827f452f949f949f8f49180,
+    type: 3}
+  rightFootprintPrefab: {fileID: 7961604661812335307, guid: 584a45b9d2fc245eea37eec51297816c,
+    type: 3}
   mainCamera: {fileID: 330585545}
   cameraPrefab: {fileID: 3459300718278544079, guid: 10ef19d3b7a0fad4b83b90e0aacecca3,
     type: 3}

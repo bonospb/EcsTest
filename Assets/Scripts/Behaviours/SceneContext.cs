@@ -20,6 +20,9 @@ namespace FreeTeam.Test.Behaviours
         [SerializeField] private GameObject playerPrefab = null;
         [SerializeField] private GameObject opponentPrefab = null;
         [Space(10)]
+        [SerializeField] private GameObject leftFootprintPrefab = null;
+        [SerializeField] private GameObject rightFootprintPrefab = null;
+        [Space(10)]
         [SerializeField] private Camera mainCamera = null;
         [SerializeField] private GameObject cameraPrefab = null;
         [Space(10)]
@@ -37,6 +40,8 @@ namespace FreeTeam.Test.Behaviours
 
         public GameObject PlayerPrefab => playerPrefab;
         public GameObject OpponentPrefab => opponentPrefab;
+        public GameObject LeftFootprintPrefab => leftFootprintPrefab;
+        public GameObject RightFootprintPrefab => rightFootprintPrefab;
         public GameObject CameraPrefab => cameraPrefab;
 
         public ButtonAndGatesLink[] ButtonAndGatesLinks => buttonAndGatesLinks;

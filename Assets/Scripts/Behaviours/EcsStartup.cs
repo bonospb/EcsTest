@@ -49,7 +49,7 @@ namespace FreeTeam.Test.Behaviours
                 .Add(new PlayerInitSystem())
                 .Add(new OpponentInitSystem())
                 .Add(new CameraInitSystem())
-                .Add(new GateInitSystem())
+                .Add(new ButtonAndGateInitSystem())
 
                 .Inject(configs)
                 .Inject(timeService)
@@ -68,6 +68,8 @@ namespace FreeTeam.Test.Behaviours
                 .Add(new MovementSystem())
                 .Add(new RotationSystem())
 
+                .Add(new FootprintSystem())
+
                 .Add(new PushedButtonGateSystem())
                 .Add(new GateOpeningSystem())
 
@@ -75,6 +77,9 @@ namespace FreeTeam.Test.Behaviours
 
                 .Add(new SetTransformSystem())
                 .Add(new AnimateCharacterSystem())
+
+                .Add(new EntitiesLifeTimeSystem())
+                .Add(new DestroyEntitiesSystem())
 
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())

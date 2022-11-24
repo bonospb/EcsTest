@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace FreeTeam.Test.Ecs.Systems
 {
-    public class GateInitSystem : IEcsInitSystem
+    public class ButtonAndGateInitSystem : IEcsInitSystem
     {
         #region Inject
         private readonly EcsWorldInject world = default;

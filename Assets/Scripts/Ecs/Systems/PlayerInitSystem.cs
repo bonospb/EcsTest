@@ -16,6 +16,7 @@ namespace FreeTeam.Test.Ecs.Systems
         private readonly EcsPoolInject<Player> playerPool = default;
         private readonly EcsPoolInject<Unit> unitPool = default;
         private readonly EcsPoolInject<InputData> inputDataPool = default;
+        private readonly EcsPoolInject<LastFootprintData> lastFootprintDataPool = default;
         private readonly EcsPoolInject<MovementData> movementDataPool = default;
         private readonly EcsPoolInject<TransformData> transformDataPool = default;
         private readonly EcsPoolInject<TransformReference> transformReferencePool = default;
@@ -33,6 +34,7 @@ namespace FreeTeam.Test.Ecs.Systems
             playerPool.Value.Add(entity);
             unitPool.Value.Add(entity);
             inputDataPool.Value.Add(entity);
+            lastFootprintDataPool.Value.Add(entity);
 
             GameObject playerGO = Object.Instantiate(
                 sceneData.Value.PlayerPrefab,
