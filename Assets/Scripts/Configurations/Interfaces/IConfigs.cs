@@ -6,5 +6,7 @@
         OpponentConfig OpponentConfig { get; }
 
         GateConfig GateConfig { get; }
+
+        FootprintConfig[] FootprintConfigs { get; }
     }
 }

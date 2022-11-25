@@ -1,7 +1,10 @@
 ﻿using FreeTeam.Test.Behaviours;
+using FreeTeam.Test.Behaviours.Providers;
+using FreeTeam.Test.Configurations;
 using FreeTeam.Test.Ecs.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using System.Linq;
 using UnityEngine;
 
 namespace FreeTeam.Test.Ecs.Systems
@@ -9,6 +12,7 @@ namespace FreeTeam.Test.Ecs.Systems
     public class FootprintSystem : IEcsRunSystem
     {
         #region Constants
+        private const string UNIT_ID = "unit";
         private const float FOOTPRINT_DELTA = 0.5f;
         #endregion
 
@@ -21,7 +25,10 @@ namespace FreeTeam.Test.Ecs.Systems
         private readonly EcsPoolInject<FootprintData> footprintDataPool = default;
         private readonly EcsPoolInject<TransformData> transformDataPool = default;
         private readonly EcsPoolInject<TransformReference> transformReferencePool = default;
+        private readonly EcsPoolInject<LifeTime> lifetimePool = default;
+        private readonly EcsPoolInject<ProviderReference<float>> providerReferencePool = default;
 
+        private readonly EcsCustomInject<IConfigs> configs = default;
         private readonly EcsCustomInject<SceneContext> sceneContext = default;
         #endregion
 
@@ -73,6 +80,12 @@ namespace FreeTeam.Test.Ecs.Systems
 
             ref var transformReference = ref transformReferencePool.Value.Add(footprintEntity);
             transformReference.Transform = footprintGO.transform;
+
+            ref var lifetime = ref lifetimePool.Value.Add(footprintEntity);
+            lifetime.Value = configs.Value.FootprintConfigs.FirstOrDefault(x => x.Id == UNIT_ID).Lifetime;
+
+            ref var providerReference = ref providerReferencePool.Value.Add(footprintEntity);
+            providerReference.Provider = footprintGO.GetComponentInChildren<LifetimeProvider>();
 
             return world.Value.PackEntity(footprintEntity);
         }

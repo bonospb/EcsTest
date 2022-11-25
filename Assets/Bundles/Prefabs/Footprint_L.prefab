@@ -92,6 +92,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8094881601603754157}
+  - component: {fileID: -5369177985678483785}
+  - component: {fileID: 3469676978027328590}
   m_Layer: 0
   m_Name: Footprint_L
   m_TagString: Untagged
@@ -115,3 +117,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &-5369177985678483785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600920622916232644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ec70602be85384390ed11a6f39c5fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetimeProvider: {fileID: 3469676978027328590}
+--- !u!114 &3469676978027328590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7600920622916232644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d066d412dbbda5a46b9b43d56a6fbb50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

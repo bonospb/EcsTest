@@ -7,6 +7,8 @@
         public OpponentConfig OpponentConfig { get; private set; } = new OpponentConfig();
 
         public GateConfig GateConfig { get; private set; } = new GateConfig();
+
+        public FootprintConfig[] FootprintConfigs { get; private set; } = { new FootprintConfig() };
         #endregion
     }
 }

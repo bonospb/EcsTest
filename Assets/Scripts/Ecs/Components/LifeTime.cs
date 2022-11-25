@@ -2,6 +2,6 @@
 {
     public struct LifeTime
     {
-        public float Timer;
+        public float Value;
     }
 }
