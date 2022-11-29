@@ -3,8 +3,8 @@
     public sealed class OpponentConfig
     {
         #region Public
-        public float MoveSpeed { get; private set; } = 2;
-        public float RotationSpeed { get; private set; } = 90;
+        public float MoveSpeed { get; private set; } = 1.5f;
+        public float RotationSpeed { get; private set; } = 180f;
         #endregion
     }
 }
