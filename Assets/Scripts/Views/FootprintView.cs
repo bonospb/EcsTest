@@ -1,7 +1,6 @@
 ﻿using FreeTeam.Test.Behaviours.Providers;
 using UnityEngine;
 
-
 namespace Assets.Scripts.Views
 {
     public class FootprintView : MonoBehaviour
@@ -27,8 +26,6 @@ namespace Assets.Scripts.Views
         {
             if (maxValue < lifetimeProvider.Value)
                 maxValue = lifetimeProvider.Value;
-
-            //var t = Mathf.InverseLerp(0, maxValue, lifetimeProvider.Value);
 
             if (lifetimeProvider.Value <= 0)
                 Destroy(gameObject);
