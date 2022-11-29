@@ -67,7 +67,7 @@ namespace FreeTeam.Test.Ecs.Systems
                 ? sceneContext.Value.LeftFootprintPrefab
                 : sceneContext.Value.RightFootprintPrefab;
 
-            var footprintGO = GameObject.Instantiate(footprintPrefab);
+            var footprintGO = GameObject.Instantiate(footprintPrefab, sceneContext.Value.FootprintContainer);
 
             var footprintEntity = world.Value.NewEntity();
 
