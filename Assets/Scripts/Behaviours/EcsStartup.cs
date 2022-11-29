@@ -1,5 +1,6 @@
 using FreeTeam.Test.Configurations;
 using FreeTeam.Test.Ecs.Components;
+using FreeTeam.Test.Ecs.Components.Input;
 using FreeTeam.Test.Ecs.Systems;
 using FreeTeam.Test.Services;
 using Leopotam.EcsLite;
@@ -60,8 +61,10 @@ namespace FreeTeam.Test.Behaviours
 
             updateSystem = new EcsSystems(world);
             updateSystem
-                .Add(new PlayerPointClickInputSystem())
-                .Add(new GenerateOpponentInputDataSystem())
+                .Add(new PointClickInputSystem())
+
+                .Add(new PlayerInputSystem())
+                .Add(new GenerateOpponentTargetPointSystem())
 
                 .Add(new AnimateCharacterSystem())
 
@@ -85,6 +88,9 @@ namespace FreeTeam.Test.Behaviours
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
 
+                .DelHere<InputDirection>()
+                .DelHere<InputAction>()
+                .DelHere<InputAttack>()
                 .DelHere<IsMoving>()
                 .DelHere<IsButtonPushed>()
 

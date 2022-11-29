@@ -1,4 +1,5 @@
 ﻿using FreeTeam.Test.Ecs.Components;
+using FreeTeam.Test.Ecs.Components.Input;
 using FreeTeam.Test.Services;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -9,10 +10,10 @@ namespace FreeTeam.Test.Ecs.Systems
     public class RotationSystem : IEcsRunSystem
     {
         #region Inject
-        private readonly EcsFilterInject<Inc<MovementData, InputData, TransformData>> filter = default;
+        private readonly EcsFilterInject<Inc<MovementData, InputDirection, TransformData>> filter = default;
 
         private readonly EcsPoolInject<MovementData> movementDataPool = default;
-        private readonly EcsPoolInject<InputData> inputDataPool = default;
+        private readonly EcsPoolInject<InputDirection> inputDirectionPool = default;
         private readonly EcsPoolInject<TransformData> transformDataPool = default;
 
         private readonly EcsCustomInject<ITimeService> timeService = default;
@@ -24,12 +25,12 @@ namespace FreeTeam.Test.Ecs.Systems
             foreach (var entity in filter.Value)
             {
                 ref var playerData = ref movementDataPool.Value.Get(entity);
-                ref var inputData = ref inputDataPool.Value.Get(entity);
+                ref var inputDirection = ref inputDirectionPool.Value.Get(entity);
                 ref var transformData = ref transformDataPool.Value.Get(entity);
 
                 var dt = timeService.Value.DeltaTime;
 
-                var targetDir = (inputData.TargetPosition - transformData.Position).normalized;
+                var targetDir = inputDirection.Direction.normalized;
                 var angle = Vector3.SignedAngle(transformData.Direction, targetDir, Vector3.up);
 
                 var rotationSpeed = Mathf.Min(playerData.RotationSpeed * dt, Mathf.Abs(angle));

@@ -15,7 +15,6 @@ namespace FreeTeam.Test.Ecs.Systems
 
         private readonly EcsPoolInject<Opponent> opponentPool = default;
         private readonly EcsPoolInject<Unit> unitPool = default;
-        private readonly EcsPoolInject<InputData> inputDataPool = default;
         private readonly EcsPoolInject<LastFootprintData> lastFootprintDataPool = default;
         private readonly EcsPoolInject<MovementData> movementDataPool = default;
         private readonly EcsPoolInject<TransformData> transformDataPool = default;
@@ -23,7 +22,7 @@ namespace FreeTeam.Test.Ecs.Systems
         private readonly EcsPoolInject<ProviderReference<AnimationTypes>> providerReferencePool = default;
 
         private readonly EcsCustomInject<IConfigs> configs = default;
-        private readonly EcsCustomInject<SceneContext> sceneData = default;
+        private readonly EcsCustomInject<SceneContext> sceneContext = default;
         #endregion
 
         #region Implementation
@@ -33,21 +32,19 @@ namespace FreeTeam.Test.Ecs.Systems
 
             opponentPool.Value.Add(entity);
             unitPool.Value.Add(entity);
-            inputDataPool.Value.Add(entity);
             lastFootprintDataPool.Value.Add(entity);
 
             GameObject opponentGO = Object.Instantiate(
-                sceneData.Value.OpponentPrefab,
-                sceneData.Value.OpponentSpawnPointPosition,
-                sceneData.Value.OpponentSpawnPointRotation);
+                sceneContext.Value.OpponentPrefab,
+                sceneContext.Value.CharactersContainer);
 
             ref var movementData = ref movementDataPool.Value.Add(entity);
             movementData.MoveSpeed = configs.Value.OpponentConfig.MoveSpeed;
             movementData.RotationSpeed = configs.Value.OpponentConfig.RotationSpeed;
 
             ref var transformData = ref transformDataPool.Value.Add(entity);
-            transformData.Position = sceneData.Value.OpponentSpawnPointPosition;
-            transformData.Direction = (sceneData.Value.OpponentSpawnPointRotation * Vector3.forward).normalized;
+            transformData.Position = sceneContext.Value.OpponentSpawnPointPosition;
+            transformData.Direction = (sceneContext.Value.OpponentSpawnPointRotation * Vector3.forward).normalized;
 
             ref var transformReference = ref transformReferencePool.Value.Add(entity);
             transformReference.Transform = opponentGO.transform;
