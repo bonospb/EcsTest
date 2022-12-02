@@ -62,6 +62,7 @@ namespace FreeTeam.Test.Behaviours
             updateSystem = new EcsSystems(world);
             updateSystem
                 .Add(new PointClickInputSystem())
+                .Add(new JoystickInputSystem())
 
                 .Add(new PlayerInputSystem())
                 .Add(new GenerateOpponentTargetPointSystem())

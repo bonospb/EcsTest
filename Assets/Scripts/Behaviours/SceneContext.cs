@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FreeTeam.Test.UI;
+using UnityEngine;
 
 namespace FreeTeam.Test.Behaviours
 {
@@ -31,6 +32,8 @@ namespace FreeTeam.Test.Behaviours
         [SerializeField] private Transform footprintContainer = null;
         [Space(10)]
         [SerializeField] private ButtonAndGatesLink[] buttonAndGatesLinks = null;
+        [Header("UI")]
+        [SerializeField] private HUD hud = null;
         #endregion
 
         #region Public
@@ -52,6 +55,8 @@ namespace FreeTeam.Test.Behaviours
         public Transform FootprintContainer => footprintContainer;
 
         public ButtonAndGatesLink[] ButtonAndGatesLinks => buttonAndGatesLinks;
+
+        public HUD HUD => hud;
         #endregion
     }
 }

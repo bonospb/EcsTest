@@ -18,17 +18,17 @@ namespace FreeTeam.Test.Ecs.Systems
 
         private readonly EcsPoolInject<InputTargetPoint> inputTargetPointPool = default;
 
-        private readonly EcsCustomInject<SceneContext> sceneData = default;
+        private readonly EcsCustomInject<SceneContext> sceneContext = default;
         #endregion
 
         #region Implemetation
         public void Run(IEcsSystems systems)
         {
-            if (Input.GetButtonUp(ACTION_BTN_INPUT_NAME)
+            if (Input.GetButtonDown(ACTION_BTN_INPUT_NAME)
                 && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 var plane = new Plane(Vector3.up, 0);
-                var ray = sceneData.Value.MainCamera.ScreenPointToRay(Input.mousePosition);
+                var ray = sceneContext.Value.MainCamera.ScreenPointToRay(Input.mousePosition);
 
                 if (plane.Raycast(ray, out var hitDistance))
                 {
