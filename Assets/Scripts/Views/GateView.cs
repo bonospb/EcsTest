@@ -8,7 +8,12 @@ namespace FreeTeam.Test.Views
         #region SerializeFields
         [SerializeField] private ProgressProvider progressProvider = default;
 
+        [SerializeField] private float openSpeed = 1f;
         [SerializeField] private Vector3 openPositionOffset = Vector3.zero;
+        #endregion
+
+        #region Public
+        public float OpenSpeed => openSpeed;
         #endregion
 
         #region Private
@@ -24,14 +29,14 @@ namespace FreeTeam.Test.Views
         }
 
         private void OnEnable() =>
-            progressProvider.OnChanged += OnChangedHandler;
+            progressProvider.OnChanged += OnProgressChangedHandler;
 
         private void OnDisable() =>
-            progressProvider.OnChanged -= OnChangedHandler;
+            progressProvider.OnChanged -= OnProgressChangedHandler;
         #endregion
 
         #region Private methods
-        private void OnChangedHandler() =>
+        private void OnProgressChangedHandler() =>
             transform.localPosition = Vector3.Lerp(closedLocalPosition, openLocalPosition, progressProvider.Value);
         #endregion
     }

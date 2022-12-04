@@ -18,6 +18,9 @@ namespace FreeTeam.Test.Behaviours
         #endregion
 
         #region Private
+        private IConfigs configs = null;
+        private ITimeService timeService = null;
+
         private EcsWorld world = null;
 
         private EcsSystems initSystems = null;
@@ -30,7 +33,7 @@ namespace FreeTeam.Test.Behaviours
             if (!isLocalRun)
                 return;
 
-            Construct(new Configs(), new TimeService());
+            Construct(new EcsWorld(), new Configs(), new TimeService());
         }
 
         private void Update() =>
@@ -41,16 +44,39 @@ namespace FreeTeam.Test.Behaviours
         #endregion
 
         #region Public methods
-        public void Construct(IConfigs configs, ITimeService timeService)
+        public void Construct(EcsWorld world, IConfigs configs, ITimeService timeService)
         {
-            world = new EcsWorld();
+            this.world = world;
+            this.configs = configs;
+            this.timeService = timeService;
 
+            BuildSystems();
+        }
+
+        public void Destruct()
+        {
+            updateSystem?.Destroy();
+            updateSystem = null;
+
+            initSystems?.Destroy();
+            initSystems = null;
+
+            world?.Destroy();
+            world = null;
+        }
+        #endregion
+
+        #region Private
+        private void BuildSystems()
+        {
             initSystems = new EcsSystems(world);
             initSystems
+                .Add(new SceneInitSystem())
+
                 .Add(new PlayerInitSystem())
                 .Add(new OpponentInitSystem())
+
                 .Add(new CameraInitSystem())
-                .Add(new ButtonAndGateInitSystem())
 
                 .Inject(configs)
                 .Inject(timeService)
@@ -101,18 +127,6 @@ namespace FreeTeam.Test.Behaviours
                 .Inject(sceneContext)
 
                 .Init();
-        }
-
-        public void Destruct()
-        {
-            updateSystem?.Destroy();
-            updateSystem = null;
-
-            initSystems?.Destroy();
-            initSystems = null;
-
-            world?.Destroy();
-            world = null;
         }
         #endregion
     }

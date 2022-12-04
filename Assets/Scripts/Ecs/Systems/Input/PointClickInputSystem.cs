@@ -1,4 +1,5 @@
 ﻿using FreeTeam.Test.Behaviours;
+using FreeTeam.Test.Common;
 using FreeTeam.Test.Ecs.Components;
 using FreeTeam.Test.Ecs.Components.Input;
 using Leopotam.EcsLite;
@@ -9,10 +10,6 @@ namespace FreeTeam.Test.Ecs.Systems
 {
     public class PointClickInputSystem : IEcsRunSystem
     {
-        #region Constants
-        private const string ACTION_BTN_INPUT_NAME = "Action";
-        #endregion
-
         #region Inject
         private readonly EcsFilterInject<Inc<Player>> filter = default;
 
@@ -24,7 +21,7 @@ namespace FreeTeam.Test.Ecs.Systems
         #region Implemetation
         public void Run(IEcsSystems systems)
         {
-            if (Input.GetButtonDown(ACTION_BTN_INPUT_NAME)
+            if (Input.GetButtonDown(InputConstants.ACTION_BTN_INPUT_NAME)
                 && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 var plane = new Plane(Vector3.up, 0);

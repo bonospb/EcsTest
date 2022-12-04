@@ -5,15 +5,6 @@ namespace FreeTeam.Test.Behaviours
 {
     public class SceneContext : MonoBehaviour
     {
-        #region Internal
-        [System.Serializable]
-        public class ButtonAndGatesLink
-        {
-            public GameObject Button;
-            public GameObject[] Gates;
-        }
-        #endregion
-
         #region SerializeFields
         [Header("Spawnpoints")]
         [SerializeField] private Transform playerSpawnPoint = null;
@@ -30,8 +21,6 @@ namespace FreeTeam.Test.Behaviours
         [Header("Containers")]
         [SerializeField] private Transform charactersContainer = null;
         [SerializeField] private Transform footprintContainer = null;
-        [Space(10)]
-        [SerializeField] private ButtonAndGatesLink[] buttonAndGatesLinks = null;
         [Header("UI")]
         [SerializeField] private HUD hud = null;
         #endregion
@@ -53,8 +42,6 @@ namespace FreeTeam.Test.Behaviours
 
         public Transform CharactersContainer => charactersContainer;
         public Transform FootprintContainer => footprintContainer;
-
-        public ButtonAndGatesLink[] ButtonAndGatesLinks => buttonAndGatesLinks;
 
         public HUD HUD => hud;
         #endregion

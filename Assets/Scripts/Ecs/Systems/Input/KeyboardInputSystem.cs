@@ -1,4 +1,5 @@
 ﻿using FreeTeam.Test.Behaviours;
+using FreeTeam.Test.Common;
 using FreeTeam.Test.Ecs.Components;
 using FreeTeam.Test.Ecs.Components.Input;
 using Leopotam.EcsLite;
@@ -14,8 +15,6 @@ namespace FreeTeam.Test.Ecs.Systems
 
         private readonly EcsPoolInject<TransformData> transformDataPool = default;
         private readonly EcsPoolInject<InputTargetPoint> inputTargetPointPool = default;
-
-        private readonly EcsCustomInject<SceneContext> sceneContex = default;
         #endregion
 
         #region Private
@@ -23,15 +22,13 @@ namespace FreeTeam.Test.Ecs.Systems
         #endregion
 
         #region Implementation
-        public void Init(IEcsSystems systems)
-        {
+        public void Init(IEcsSystems systems) =>
             camera = Camera.main;
-        }
 
         public void Run(IEcsSystems systems)
         {
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
+            var horizontal = Input.GetAxis(InputConstants.HORIZONTAL_AXIS_NAME);
+            var vertical = Input.GetAxis(InputConstants.VERTICAL_AXIS_NAME);
 
             var joystickDirection = new Vector3(horizontal, 0, vertical);
 

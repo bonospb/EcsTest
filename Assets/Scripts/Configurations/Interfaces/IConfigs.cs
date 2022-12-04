@@ -5,8 +5,6 @@
         PlayerConfig PlayerConfig { get; }
         OpponentConfig OpponentConfig { get; }
 
-        GateConfig GateConfig { get; }
-
         FootprintConfig[] FootprintConfigs { get; }
     }
 }
