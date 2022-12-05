@@ -19,7 +19,8 @@ namespace FreeTeam.Test.Converters
             var entity = ecsWorld.NewEntity();
 
             ecsWorld.GetPool<Bush>().Add(entity);
-            ecsWorld.GetPool<ProgressData>().Add(entity).Progress = 0;
+            ecsWorld.GetPool<RechargeData>().Add(entity).RechargeTime = 10f;
+            ecsWorld.GetPool<ProgressData>().Add(entity).Progress = 0f;
             ecsWorld.GetPool<ProviderReference<float>>().Add(entity).Provider = view.GetComponentInChildren<ProgressProvider>();
 
             entities.Add(view.gameObject, entity);

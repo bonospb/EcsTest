@@ -7,7 +7,7 @@ namespace FreeTeam.Test.Views
     {
         #region SerializeFields
         [SerializeField] private ProgressProvider progressProvider = default;
-
+        [Space]
         [SerializeField] private float openSpeed = 1f;
         [SerializeField] private Vector3 openPositionOffset = Vector3.zero;
         #endregion

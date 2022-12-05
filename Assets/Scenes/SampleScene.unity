@@ -974,6 +974,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bush
       objectReference: {fileID: 0}
+    - target: {fileID: 3279009882146833084, guid: 826dc133fbf02eb47bf73e3dc1102c1e,
+        type: 3}
+      propertyPath: growthRate
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3527623489153008148, guid: 826dc133fbf02eb47bf73e3dc1102c1e,
         type: 3}
       propertyPath: m_RootOrder
@@ -2236,6 +2241,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bush
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279009882146833084, guid: 826dc133fbf02eb47bf73e3dc1102c1e,
+        type: 3}
+      propertyPath: growthRate
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3527623489153008148, guid: 826dc133fbf02eb47bf73e3dc1102c1e,
         type: 3}

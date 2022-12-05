@@ -104,6 +104,7 @@ namespace FreeTeam.Test.Behaviours
                 .Add(new PushedButtonGateSystem())
                 .Add(new GateOpeningSystem())
 
+                .Add(new RechargeSystem())
                 .Add(new SetProgressSystem())
 
                 .Add(new SetTransformSystem())

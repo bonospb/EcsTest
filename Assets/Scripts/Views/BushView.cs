@@ -6,8 +6,14 @@ namespace FreeTeam.Test.Views
     public class BushView : MonoBehaviour
     {
         #region SerializeFields
-        [SerializeField] private Transform berries = null;
         [SerializeField] private ProgressProvider progressProvider = default;
+        [Space]
+        [SerializeField] private float growthRate = 10f;
+        [SerializeField] private Transform berries = null;
+        #endregion
+
+        #region Public
+        public float GrowthRate => growthRate;
         #endregion
 
         #region Unity methods
