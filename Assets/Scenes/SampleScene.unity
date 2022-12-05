@@ -520,6 +520,7 @@ MonoBehaviour:
   gates:
   - {fileID: 693427015}
   - {fileID: 1085357370}
+  - {fileID: 1085357370}
 --- !u!114 &281888135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2002,19 +2003,6 @@ MonoBehaviour:
     type: 3}
   charactersContainer: {fileID: 279156191}
   footprintContainer: {fileID: 21353086}
-  buttonAndGatesLinks:
-  - Button: {fileID: 2135079790}
-    Gates:
-    - {fileID: 832702997}
-    - {fileID: 1085357370}
-  - Button: {fileID: 2114843866}
-    Gates:
-    - {fileID: 474149436}
-    - {fileID: 693427015}
-  - Button: {fileID: 281888129}
-    Gates:
-    - {fileID: 693427015}
-    - {fileID: 1085357370}
   hud: {fileID: 6633792390240334566}
 --- !u!4 &1686358390
 Transform:

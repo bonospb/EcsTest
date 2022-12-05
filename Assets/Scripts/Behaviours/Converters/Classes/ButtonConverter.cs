@@ -21,6 +21,7 @@ namespace FreeTeam.Test.Converters
             var gates = view.Gates
                     .Where(x => x != null)
                     .Select(x => ecsWorld.PackEntity(entities[x]))
+                    .Distinct()
                     .ToArray();
 
             ref var buttonData = ref ecsWorld.GetPool<ButtonData>().Add(entity);
